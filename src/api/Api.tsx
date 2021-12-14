@@ -16,7 +16,8 @@ interface Category {
 
 export class Api {
   getDataGoods(): Promise<{ items: Goods[] }> {
-    return fetch("/api/good").then((resp) => {
+    // опечатка в урле
+    return fetch("/api/goods").then((resp) => {
       if (resp.ok) {
         return resp.json();
       }
@@ -24,15 +25,19 @@ export class Api {
   }
 
   getDataCategory(): Promise<{ categories: Category[] }> {
-    return fetch("/api/categoties").then((resp) => {
+    // опечатка в урле
+    return fetch("/api/categories").then((resp) => {
       if (resp.ok) {
-        return resp.json();
+        const res = resp.json();
+        console.log({ res });
+        return res;
       }
     });
   }
 
   getDataPopularCategory(id?: number): Promise<{category: Category[] }> {
-    return fetch(`/api/popular_categories?id=${id}`).then((resp) => {
+    // опечатка в урле
+    return fetch(`/api/popular_categories?ids=${id}`).then((resp) => {
       if (resp.ok) {
         return resp.json();
       }

@@ -34,7 +34,12 @@ export const Header = () => {
               placeholder="Введите название товара"
               style={{ width: 500 }}
             />
-            <Badge count={cart.data.length !== 0 ? cart.data.length : null}>
+            {/*
+              1. селектор CartSelectors.getCart сам возвращает data
+              2. 0 === false / все остальныне числа === true, отсюда можно упростить. Если длинна ноль (т.е. false то пойдем в или и вернем null)
+                если длинна не ноль (true), то вернеться она
+            */}
+            <Badge count={cart.length || null}>
               <button onClick={cartOnClick}>
                 <IconFont
                   style={{ fontSize: 24, textAlign: "center" }}

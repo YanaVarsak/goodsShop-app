@@ -7,7 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const CategoryPage: React.FC = () => {
   const categories = useSelector(StoreSelectors.getPopularCategories);
+
+  // TODO см. компонент меню, тепер работает на id, а не type. Преименовать на id тут и в роутах
   const { type } = useParams();
+
+  // TODO больше не ищем в моках, а дергаем на маунте санку передавая id, которая дернет апи передавая id, апи сходит в ручку /categories
+  // Делать по аналогии с категорями для менб, только что тут пробрасываем id, который взяла из useParams
   const thisType = categories.data.find((el) => el.type === type ) ;
 
   let navigate = useNavigate();

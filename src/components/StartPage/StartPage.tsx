@@ -9,9 +9,12 @@ export const StartPage: React.FC = () => {
   const goods = useSelector(GoodsSelectors.getGoods)
   const dispatch = useDispatch()
   useEffect(() => {
+    // ТУТ ПЕРЕДЕЛАТЬ, нам нужны не товары, а популярные категории на стартовой странице
     dispatch(GoodsActions.fetchGoods())
   },[])
-  
+
+  console.log({ goods });
+
   return (
     <>
       <div style={{ display: "flex", padding: "20px" }}>
@@ -22,11 +25,12 @@ export const StartPage: React.FC = () => {
           alt=""
         />
       </div>
-      {goods.map((image) => (
-        <div>
-          <h2 style={{ textAlign: "center" }}>{image.label} </h2>
+      {/* У кудсов нет никаких items, goods и есть items. Ты же сама писала тип на Godd */}
+      {goods.map((item) => (
+        // При мапинге ВСЕГДА проставялем key
+        <div key={item.id}>
+          <h2 style={{ textAlign: "center" }}>{item.label} </h2>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* {image.items.map((item) => (
               <Link to={`/${item.category_type}/${item.id}`}>
                 <GoodCard
                   id={item.id}
@@ -34,10 +38,9 @@ export const StartPage: React.FC = () => {
                   price={item.price}
                   img={item.img}
                   category_type={item.category_type}
-                  discription={item.discription}
+                  discription={item.description}
                 ></GoodCard>
               </Link>
-            ))} */}
           </div>
         </div>
       ))}

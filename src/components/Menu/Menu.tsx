@@ -15,7 +15,8 @@ export const MenuSide = () => {
   const categories = useSelector(StoreSelectors.getCategories);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCategories);
+    // мы ВСЕГДА вызваем экшен креаторы, а не передаем их
+    dispatch(fetchCategories());
   }, []);
 
   return (
@@ -23,6 +24,7 @@ export const MenuSide = () => {
       <Menu mode="vertical">
         {categories.data.map((item: MenuType) => (
           <Menu.Item key={item.id}>
+            {/* TODO: теперь переходы должны работать на id категории, а не type  */}
             <Link to={`/${item.type}`}> {item.label} </Link>
           </Menu.Item>
         ))}
