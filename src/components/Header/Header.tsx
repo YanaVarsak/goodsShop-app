@@ -17,7 +17,7 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(CartActions.getFetchCart());
-  }, []);
+  }, [dispatch]);
 
   const cart = useSelector(CartSelectors.getCart);
 
@@ -25,7 +25,7 @@ export const Header = () => {
   return (
     <>
       <div className={css.header}>
-        <Link to="/">
+        <Link to="/goods">
           <PageHeader
             style={{ display: "flex", justifyContent: "space-between" }}
             title="Good shop"
@@ -34,8 +34,8 @@ export const Header = () => {
               placeholder="Введите название товара"
               style={{ width: 500 }}
             />
-            <Badge count={cart.data.length !== 0 ? cart.data.length : null}>
-              <button onClick={cartOnClick}>
+           <Badge count={cart.length || null}>
+              <button style={{ backgroundColor: "white" }} onClick={cartOnClick}>
                 <IconFont
                   style={{ fontSize: 24, textAlign: "center" }}
                   type="icon-shoppingcart"

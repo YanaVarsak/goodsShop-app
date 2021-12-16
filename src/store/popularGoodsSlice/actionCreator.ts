@@ -14,7 +14,7 @@ export const getPopularCategoriesFailure = () => ({
     type: POPULAR_CATEGORIES_ACTIONS.GET_POPULAR_CATEGORIES_FAILURE
 })
 
-export const fetchPopularCategories = (id?: number) => async(dispatch: Dispatch<any>) => {
+export const fetchPopularCategories = () => async(dispatch: Dispatch<any>) => {
     dispatch(getPopularCategories())
-    new Api().getDataPopularCategory(id).then((data) => dispatch(getPopularCategoriesSuccess(data.category))).catch(() => dispatch(getPopularCategoriesFailure()))
+    new Api().getDataPopularCategory().then((data) => dispatch(getPopularCategoriesSuccess(data))).catch(() => dispatch(getPopularCategoriesFailure()))
 }

@@ -3,15 +3,25 @@ import { MenuSide } from "../Menu";
 import { GoodCard } from "components/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  PopularCategoriesActions,
+  PopularCategoriesSelextors,
+} from "store/popularGoodsSlice";
 import { GoodsActions, GoodsSelectors } from "store/goodsSlice";
 
 export const StartPage: React.FC = () => {
-  const goods = useSelector(GoodsSelectors.getGoods)
-  const dispatch = useDispatch()
+  const categories = useSelector(
+    PopularCategoriesSelextors.getPopularCategories
+  );
+  const Dispatch = useDispatch();
   useEffect(() => {
-    dispatch(GoodsActions.fetchGoods())
-  },[])
-  
+    Dispatch(PopularCategoriesActions.fetchPopularCategories());
+  }, [Dispatch]);
+  const goods = useSelector(GoodsSelectors.getGoods);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(GoodsActions.fetchGoods());
+  }, [dispatch]);
   return (
     <>
       <div style={{ display: "flex", padding: "20px" }}>
@@ -22,22 +32,21 @@ export const StartPage: React.FC = () => {
           alt=""
         />
       </div>
-      {goods.map((image) => (
+      {categories.map((image) => (
         <div>
           <h2 style={{ textAlign: "center" }}>{image.label} </h2>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            {/* {image.items.map((item) => (
-              <Link to={`/${item.category_type}/${item.id}`}>
+            {goods.map((item) => (
+              <Link to={`/${item.id}`} key={item.id}>
                 <GoodCard
                   id={item.id}
                   label={item.label}
                   price={item.price}
                   img={item.img}
-                  category_type={item.category_type}
-                  discription={item.discription}
+                  description={item.description}
                 ></GoodCard>
               </Link>
-            ))} */}
+            ))}
           </div>
         </div>
       ))}

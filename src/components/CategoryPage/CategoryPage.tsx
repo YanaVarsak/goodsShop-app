@@ -1,21 +1,46 @@
-import { GoodCard } from "components/Card";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { StoreSelectors  } from "store";
 import { Link, useNavigate } from "react-router-dom";
+import { GoodCard } from "components/Card";
+import {
+  PopularCategoriesActions,
+  PopularCategoriesSelextors,
+} from "store/popularGoodsSlice";
+
+interface GoodsMap {
+  label: string;
+  price: number;
+  img: string;
+  categoryTypeId: string;
+  id: string;
+  description: string;
+}
 
 export const CategoryPage: React.FC = () => {
-  const categories = useSelector(StoreSelectors.getPopularCategories);
-  const { type } = useParams();
-  const thisType = categories.data.find((el) => el.type === type ) ;
+  const categories = useSelector(
+    PopularCategoriesSelextors.getPopularCategories
+  );
+  const { typeId } = useParams();
+  const dispatch = useDispatch();
 
-  let navigate = useNavigate();
+  useEffect(() => {
+    if (!typeId) {
+      return;
+    }
+
+    // const categoryParams = "ids=" + typeId;
+    // const goodsParams = "categoryTypeIds=" + typeId;
+
+    dispatch(PopularCategoriesActions.fetchPopularCategories());
+  }, [dispatch, typeId]);
+
+  const navigate = useNavigate();
   function handleClick() {
     navigate("-1");
   }
 
-  if (!thisType) {
+  if (!typeId) {
     return (
       <div>
         Категория не найдена, вернуться
@@ -26,20 +51,18 @@ export const CategoryPage: React.FC = () => {
     );
   }
   return (
-    <div>
-      {/* {thisType.data.map((item) => (
-        <Link to={`${item.category_type}/${item.id}`}>
-        <GoodCard
-          id={item.id}
-          label={item.label}
-          price={item.price}
-          img={item.img}
-          category_type={item.category_type}
-          discription={item.discription}
-        />
+    <>
+      {/* {categories.map((item: GoodsMap) => (
+        <Link to={`${item.id}/${item.id}`} key={item.id}>
+          <GoodCard
+            id={item.id}
+            label={item.label}
+            price={item.price}
+            img={item.img}
+            description={item.description}
+          />
         </Link>
-
       ))} */}
-    </div>
+    </>
   );
 };

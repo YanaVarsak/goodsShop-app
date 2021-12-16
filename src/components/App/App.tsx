@@ -12,20 +12,15 @@ import { GoodsPage } from "components/GoodsPage";
 export const App = () => {
   return (
     <Provider store={store}>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route
-          path="/:type/:id"
-          element={
-            <ProductPage/>
-          }
-        />
-        <Route path="/:type" element={<CategoryPage />} />
-        
+        <Route path="/:id/:id" element={<ProductPage />} />
+        <Route path="/:id" element={<CategoryPage />} />
+        <Route path="/goods" element={<GoodsPage />} />
       </Routes>
-      <GoodsPage/>
      
+
       <Footer />
     </Provider>
   );

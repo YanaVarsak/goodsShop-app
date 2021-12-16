@@ -1,7 +1,6 @@
 import { LOAD_STATUSES } from './constants'
 export interface Goods {
-    id: number,
-    category_type: string;
+    id: string,
     label: string,
     img: string,
     price: number,

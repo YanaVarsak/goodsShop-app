@@ -3,15 +3,14 @@ import React from "react";
 import { Card } from "antd";
 
 export interface CardType {
-  id: number;
-  category_type: string;
+  id: string;
   label: string;
   price: number;
   img: string;
-  discription: string;
+  description: string;
 }
 
-export const GoodCard: React.FC<CardType> = ({ id, label, price, img, discription }) => {
+export const GoodCard: React.FC<CardType> = ({ id, label, price, img, description }) => {
   return (
     <Card
       hoverable
@@ -21,7 +20,7 @@ export const GoodCard: React.FC<CardType> = ({ id, label, price, img, discriptio
      <p>{label} </p> 
       {price + "$"}
      
-    <p>{discription} </p> 
+    <p>{description} </p> 
     </Card>
    
 
