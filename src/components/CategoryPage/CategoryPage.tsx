@@ -1,24 +1,68 @@
-import { GoodCard } from "components/Card";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { StoreSelectors } from "store";
+import { Link, useNavigate } from "react-router-dom";
+import { GoodCard } from "components/Card";
+import {
+  PopularCategoriesActions,
+  PopularCategoriesSelextors,
+} from "store/popularGoodsSlice";
 
+interface GoodsMap {
+  label: string;
+  price: number;
+  img: string;
+  categoryTypeId: string;
+  id: string;
+  description: string;
+}
 
-export const CategoryPage: React.FC = ()=> {
-  const goodsCategory = useSelector(StoreSelectors.getGoodsCategory);
-  const { type } = useParams();
-  const thisType = goodsCategory.find((el => el.category.type === type));
+export const CategoryPage: React.FC = () => {
+  const categories = useSelector(
+    PopularCategoriesSelextors.getPopularCategories
+  );
+  const { typeId } = useParams();
+  const dispatch = useDispatch();
 
-  if (!thisType) {
-    return <span> Категория не найдена, вернуться назад </span>
+  useEffect(() => {
+    if (!typeId) {
+      return;
+    }
+
+    // const categoryParams = "ids=" + typeId;
+    // const goodsParams = "categoryTypeIds=" + typeId;
+
+    dispatch(PopularCategoriesActions.fetchPopularCategories());
+  }, [dispatch, typeId]);
+
+  const navigate = useNavigate();
+  function handleClick() {
+    navigate("-1");
+  }
+
+  if (!typeId) {
+    return (
+      <div>
+        Категория не найдена, вернуться
+        <Link to="/" onClick={handleClick}>
+          назад
+        </Link>
+      </div>
+    );
   }
   return (
-    <div>
-      {thisType.items.map((item) => (
-        <GoodCard  id={item.id} label={item.label} price={item.price} img={item.img} category_type={item.category_type}></GoodCard>
-      ))}
-    </div>
-      
-  )
+    <>
+      {/* {categories.map((item: GoodsMap) => (
+        <Link to={`${item.id}/${item.id}`} key={item.id}>
+          <GoodCard
+            id={item.id}
+            label={item.label}
+            price={item.price}
+            img={item.img}
+            description={item.description}
+          />
+        </Link>
+      ))} */}
+    </>
+  );
 };

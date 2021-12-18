@@ -1,24 +1,31 @@
-import css from "./style.module.css";
 import { Link } from "react-router-dom";
-import { type } from "os";
+import { Menu } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { CategoriesActions, CategoriesSelectors } from "store/сategoriesSlice";
 
 interface MenuType {
-  categories: {
-    id: number;
-    type: string;
-    label: string;
-  }[];
+  id: string;
+  type: string;
+  label: string;
 }
-export const Menu = (props: MenuType) => {
+
+export const MenuSide: React.FC = () => {
+  const menuItems = useSelector(CategoriesSelectors.getCategories);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(CategoriesActions.fetchCategories());
+  }, [dispatch]);
+
   return (
-    <ul className={css.menu}>
-      {props.categories.map((item) => {
-        return (
-          <li>
-            <Link to={`/${type}`}> {item.label} </Link>
-          </li>
-        );
-      })}
-    </ul>
+    <div>
+      <Menu mode="vertical">
+        {menuItems.map((item: MenuType) => (
+          <Menu.Item key={item.id}>
+            <Link to={`/category/${String(item.id)}`}> {item.label} </Link>
+          </Menu.Item>
+        ))}
+      </Menu>
+    </div>
   );
 };

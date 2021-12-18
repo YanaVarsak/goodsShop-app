@@ -1,23 +1,48 @@
-import React from "react";
-import { Card } from "antd";
-export interface CardType {
-    id: number;
-    category_type: string;
-    label: string;
-    price: number;
-    img: string;
+import React, { useEffect } from "react";
+import { GoodCard } from "components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { GoodsActions, GoodsSelectors } from "store/goodsSlice";
+
+export function ProductPage() {
+  const goods = useSelector(GoodsSelectors.getGoods)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(GoodsActions.fetchGoods())
+  },[dispatch])
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("-1");
   }
-export const ProductPage: React.FC<CardType> = ({ id, label, price, img }) => {
-
+  if (!goods) {
     return (
-<Card
-style={{ width: 240, margin: "10px", backgroundColor: "#abcdef" }}
->
-  <img src={img} alt="" style={{ width: "190px", height: "110px" }} />
-  {label} <br />
-  {price + "$"}
-
-  </Card>
-    )
-
+      <div>
+        Продукт не найден, вернуться
+        <Link to="/" onClick={handleClick}>
+          назад
+        </Link>
+      </div>
+    );
+  }
+  return (
+    <>
+    {goods.map((good) => (
+        <Link to={`/${good.id}`}>
+          <GoodCard
+           key={good.id}
+            id={good.id}
+            label={good.label}
+            price={good.price}
+            img={good.img}
+            description={good.description} />
+        </Link>
+      ))
+    }
+     </>
+  );
 }
+
+
+
+
