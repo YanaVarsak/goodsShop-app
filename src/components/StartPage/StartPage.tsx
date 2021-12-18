@@ -7,46 +7,45 @@ import {
   PopularCategoriesActions,
   PopularCategoriesSelextors,
 } from "store/popularGoodsSlice";
-import { GoodsActions, GoodsSelectors } from "store/goodsSlice";
+
 
 export const StartPage: React.FC = () => {
   const categories = useSelector(
     PopularCategoriesSelextors.getPopularCategories
   );
-  const Dispatch = useDispatch();
-  useEffect(() => {
-    Dispatch(PopularCategoriesActions.fetchPopularCategories());
-  }, [Dispatch]);
-  const goods = useSelector(GoodsSelectors.getGoods);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(GoodsActions.fetchGoods());
+    dispatch(PopularCategoriesActions.fetchPopularCategories());
   }, [dispatch]);
+
+  console.log({ categories });
   return (
     <>
       <div style={{ display: "flex", padding: "20px" }}>
         <MenuSide />
         <img
-          style={{ width: "81%", height: "470px" }}
+          style={{ width: "81%", height: "530px", margin: "0px 20px 60px 0px" }}
           src="https://storge.pic2.me/c/1360x800/126/59ee6feec1016.jpg"
           alt=""
         />
       </div>
-      {categories.map((image) => (
-        <div>
-          <h2 style={{ textAlign: "center" }}>{image.label} </h2>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            {goods.map((item) => (
-              <Link to={`/${item.id}`} key={item.id}>
-                <GoodCard
-                  id={item.id}
-                  label={item.label}
-                  price={item.price}
-                  img={item.img}
-                  description={item.description}
-                ></GoodCard>
-              </Link>
-            ))}
+      {categories.map(({ category, items }) => (
+        <div >
+          <h2 style={{ textAlign: "center" }}>{category.label} </h2>
+          <div style={{ display: "flex" }}>
+          {items.map((item) => (
+             <Link to={`/${item.id}`} key={item.id}>
+            <GoodCard 
+              id={item.id}
+              label={item.label}
+              price={item.price}
+              img={item.img}
+              description={item.description}
+            ></GoodCard>
+            </Link>
+          ))}
           </div>
         </div>
       ))}

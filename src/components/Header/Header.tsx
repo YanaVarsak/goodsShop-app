@@ -25,7 +25,7 @@ export const Header = () => {
   return (
     <>
       <div className={css.header}>
-        <Link to="/goods">
+        <Link to="/">
           <PageHeader
             style={{ display: "flex", justifyContent: "space-between" }}
             title="Good shop"
@@ -35,8 +35,9 @@ export const Header = () => {
               style={{ width: 500 }}
             />
            <Badge count={cart.length || null}>
-              <button style={{ backgroundColor: "white" }} onClick={cartOnClick}>
+              <button style={{ backgroundColor: "white", border: "none" }} onClick={cartOnClick}>
                 <IconFont
+                
                   style={{ fontSize: 24, textAlign: "center" }}
                   type="icon-shoppingcart"
                 />

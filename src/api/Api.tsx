@@ -8,18 +8,17 @@ interface Goods {
   price: number;
   description: string;
 }
-interface Category {
-  id: string,
-  label: string,
-  type: string,
+interface PopularCategory {
+  category: { id: string; type: string; label: string };
+  items: { id: string; label: string; price: number; description:string; img:string}[];
 
 }
 
 
 
 export class Api {
-  getDataGoods(): Promise< Goods[] > {
-    return fetch("/api/goods").then((resp) => {
+  getDataGoods({categoryID}:{categoryID?:string}={}): Promise< Goods[] > {
+    return fetch(`/api/goods?caterytypeIds=${categoryID}`).then((resp) => {
       if (resp.ok) {
         return resp.json();
       }
@@ -36,7 +35,7 @@ export class Api {
     });
   }
 
-  getDataPopularCategory(id?: string): Promise<Category[] > {
+  getDataPopularCategory(id?: string): Promise<PopularCategory[] > {
     return fetch(`/api/popular_categories?ids=${id}`).then((resp) => {
       if (resp.ok) {
         return resp.json();

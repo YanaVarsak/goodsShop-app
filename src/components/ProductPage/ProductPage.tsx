@@ -27,10 +27,10 @@ export function ProductPage() {
   }
   return (
     <>
-    {goods.map((good) => (
-        <Link to={`/${good.id}`}>
+     {/*@ts-ignore */}
+    {goods.items.map((good) => (
+        <Link key={good.id} to={`/${good.id}`}>
           <GoodCard
-           key={good.id}
             id={good.id}
             label={good.label}
             price={good.price}

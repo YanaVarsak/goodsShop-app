@@ -20,7 +20,8 @@ export const MenuSide: React.FC = () => {
   return (
     <div>
       <Menu mode="vertical">
-        {menuItems.map((item: MenuType) => (
+        {/*@ts-ignore */}
+        {menuItems?.categories?.map((item: MenuType) => (
           <Menu.Item key={item.id}>
             <Link to={`/category/${String(item.id)}`}> {item.label} </Link>
           </Menu.Item>

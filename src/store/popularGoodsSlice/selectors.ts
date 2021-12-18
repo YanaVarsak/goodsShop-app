@@ -1,3 +1,5 @@
 import { RootState } from '../store'
-export const getPopularCategoriesBranch = (state: RootState) => state.сategories
-export const getPopularCategories = (state: RootState) => getPopularCategoriesBranch(state).data
+export const getPopularCategoriesBranch = (state: RootState) => state.popular
+export const getPopularCategories = (state: RootState) => {
+    return getPopularCategoriesBranch(state).data;
+  };

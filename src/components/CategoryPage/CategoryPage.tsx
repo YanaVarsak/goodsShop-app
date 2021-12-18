@@ -42,10 +42,9 @@ export const CategoryPage: React.FC = () => {
 
   if (!typeId) {
     return (
-      <div>
+      <div >
         Категория не найдена, вернуться
-        <Link to="/" onClick={handleClick}>
-          назад
+        <Link to="/" onClick={handleClick}> назад
         </Link>
       </div>
     );
