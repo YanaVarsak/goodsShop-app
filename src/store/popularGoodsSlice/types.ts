@@ -1,4 +1,4 @@
-import { DescriptionsProps } from "antd";
+
 import { LOAD_STATUSES } from "./constants";
 
 export interface PopularCategories {

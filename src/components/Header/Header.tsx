@@ -30,14 +30,20 @@ export const Header = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
             title="Good shop"
           >
+            <Link to="/goods">
+              <div> All goods</div>
+            </Link>
+
             <Search
               placeholder="Введите название товара"
               style={{ width: 500 }}
             />
-           <Badge count={cart.length || null}>
-              <button style={{ backgroundColor: "white", border: "none" }} onClick={cartOnClick}>
+            <Badge count={cart.length || null}>
+              <button
+                style={{ backgroundColor: "white", border: "none" }}
+                onClick={cartOnClick}
+              >
                 <IconFont
-                
                   style={{ fontSize: 24, textAlign: "center" }}
                   type="icon-shoppingcart"
                 />

@@ -17,8 +17,8 @@ interface PopularCategory {
 
 
 export class Api {
-  getDataGoods({categoryID}:{categoryID?:string}={}): Promise< Goods[] > {
-    return fetch(`/api/goods?caterytypeIds=${categoryID}`).then((resp) => {
+  getDataGoods({id}:{id?:string}={}): Promise< Goods[] > {
+    return fetch(`/api/goods?caterytypeIds=${id}`).then((resp) => {
       if (resp.ok) {
         return resp.json();
       }

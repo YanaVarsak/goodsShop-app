@@ -1,6 +1,7 @@
 import "antd/dist/antd.css";
 import React from "react";
 import { Card } from "antd";
+import { Link } from "react-router-dom";
 
 export interface CardType {
   id: string;
@@ -10,19 +11,25 @@ export interface CardType {
   description: string;
 }
 
-export const GoodCard: React.FC<CardType> = ({ id, label, price, img, description }) => {
+export const GoodCard: React.FC<CardType> = ({
+  id,
+  label,
+  price,
+  img,
+  description,
+}) => {
   return (
-    <Card
-      hoverable
-      style={{ width: 240, margin: "10px", backgroundColor: "#abcdef" }}
-    >
-      <img src={img} alt="" style={{ width: "190px", height: "110px" }} />
-     <p>{label} </p> 
-      {price + "$"}
-     
-    <p>{description} </p> 
-    </Card>
-   
+    <Link to={`/good/${id}`}>
+      <Card
+        hoverable
+        style={{ width: 240, margin: "10px", minHeight: "420px" }}
+      >
+        <img src={img} alt="" style={{ width: "190px", height: "170px" }} />
+        <p>{label} </p>
+        {price + "$"}
 
+        <p>{description} </p>
+      </Card>
+    </Link>
   );
 };

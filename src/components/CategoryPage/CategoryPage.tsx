@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoodCard } from "components/Card";
 import {
   PopularCategoriesActions,
-  PopularCategoriesSelextors,
+  PopularCategoriesSelectors,
 } from "store/popularGoodsSlice";
 
 interface GoodsMap {
@@ -19,49 +19,54 @@ interface GoodsMap {
 
 export const CategoryPage: React.FC = () => {
   const categories = useSelector(
-    PopularCategoriesSelextors.getPopularCategories
+    PopularCategoriesSelectors.getPopularCategories
   );
-  const { typeId } = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!typeId) {
+    if (!id) {
       return;
     }
 
-    // const categoryParams = "ids=" + typeId;
-    // const goodsParams = "categoryTypeIds=" + typeId;
 
     dispatch(PopularCategoriesActions.fetchPopularCategories());
-  }, [dispatch, typeId]);
+  }, [dispatch, id, ]);
 
   const navigate = useNavigate();
   function handleClick() {
     navigate("-1");
   }
 
-  if (!typeId) {
+  if (!id || !categories) {
     return (
-      <div >
+      <div>
         Категория не найдена, вернуться
         <Link to="/" onClick={handleClick}> назад
         </Link>
       </div>
     );
-  }
+  } else 
   return (
     <>
-      {/* {categories.map((item: GoodsMap) => (
-        <Link to={`${item.id}/${item.id}`} key={item.id}>
-          <GoodCard
-            id={item.id}
-            label={item.label}
-            price={item.price}
-            img={item.img}
-            description={item.description}
-          />
-        </Link>
-      ))} */}
+   {categories.map(({ category, items }) => (
+        <div >
+          <h2 style={{ textAlign: "center" }}>{category.label} </h2>
+          <div style={{ display: "flex" }}>
+          {items.map((item) => (
+             
+            <GoodCard 
+              id={item.id}
+              label={item.label}
+              price={item.price}
+              img={item.img}
+              description={item.description}
+            ></GoodCard>
+           
+          ))}
+          </div>
+        </div>
+      ))}
     </>
   );
 };
