@@ -3,24 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 import { GoodCard } from "components/Card";
-import {
-  PopularCategoriesActions,
-  PopularCategoriesSelectors,
-} from "store/popularGoodsSlice";
-
-interface GoodsMap {
-  label: string;
-  price: number;
-  img: string;
-  categoryTypeId: string;
-  id: string;
-  description: string;
-}
+import { GoodsActions, GoodsSelectors } from "store/goodsSlice";
 
 export const CategoryPage: React.FC = () => {
-  const categories = useSelector(
-    PopularCategoriesSelectors.getPopularCategories
-  );
+  const goods = useSelector(GoodsSelectors.getGoods);
   const { id } = useParams();
   const dispatch = useDispatch();
 
@@ -29,43 +15,36 @@ export const CategoryPage: React.FC = () => {
       return;
     }
 
-
-    dispatch(PopularCategoriesActions.fetchPopularCategories());
-  }, [dispatch, id, ]);
+    dispatch(GoodsActions.fetchGoods({categoryTypeIds:id}));
+  }, [dispatch, id]);
 
   const navigate = useNavigate();
   function handleClick() {
     navigate("-1");
   }
-
-  if (!id || !categories) {
+console.log(goods)
+  if (!id || !goods.length) {
     return (
       <div>
         Категория не найдена, вернуться
-        <Link to="/" onClick={handleClick}> назад
+        <Link to="/" onClick={handleClick}>
+          {" "}
+          назад
         </Link>
       </div>
     );
-  } else 
+  }
   return (
     <>
-   {categories.map(({ category, items }) => (
-        <div >
-          <h2 style={{ textAlign: "center" }}>{category.label} </h2>
-          <div style={{ display: "flex" }}>
-          {items.map((item) => (
-             
-            <GoodCard 
-              id={item.id}
-              label={item.label}
-              price={item.price}
-              img={item.img}
-              description={item.description}
-            ></GoodCard>
-           
-          ))}
-          </div>
-        </div>
+      {goods.map((item) => (
+        <GoodCard
+        key={item.id}
+          id={item.id}
+          label={item.label}
+          price={item.price}
+          img={item.img}
+          description={item.description}
+        ></GoodCard>
       ))}
     </>
   );

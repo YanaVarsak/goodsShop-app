@@ -1,4 +1,4 @@
-import { PageHeader, Divider, Input, Badge } from "antd";
+import { PageHeader, Divider, Input, Badge, Row } from "antd";
 import css from "./style.module.css";
 import { Link } from "react-router-dom";
 import { createFromIconfontCN } from "@ant-design/icons";
@@ -12,6 +12,7 @@ const IconFont = createFromIconfontCN({
   ],
 });
 const { Search } = Input;
+
 export const Header = () => {
   const dispatch = useDispatch();
 
@@ -25,11 +26,15 @@ export const Header = () => {
   return (
     <>
       <div className={css.header}>
+        <Row align={"middle"} justify="space-between">
         <Link to="/">
           <PageHeader
             style={{ display: "flex", justifyContent: "space-between" }}
             title="Good shop"
           >
+             </PageHeader>
+                </Link>
+            
             <Link to="/goods">
               <div> All goods</div>
             </Link>
@@ -49,9 +54,9 @@ export const Header = () => {
                 />
               </button>
             </Badge>
-          </PageHeader>
+         
           <Divider />
-        </Link>
+          </Row>
       </div>
     </>
   );

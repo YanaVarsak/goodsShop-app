@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { MenuSide } from "../Menu";
 import { GoodCard } from "components/Card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   PopularCategoriesActions,
   PopularCategoriesSelectors,
@@ -30,19 +29,22 @@ export const StartPage: React.FC = () => {
         />
       </div>
       {categories.map(({ category, items }) => (
-        <div  style={{marginLeft: "30px", marginRight: "30px"}} >
+        <div  style={{marginLeft: "30px", marginRight: "30px"}} key={category.id}>
           <h2 style={{ textAlign: "center" }}>{category.label} </h2>
           <div style={{ display: "flex", justifyContent:"space-between"}}>
           {items.slice(1,6).map((item) => (
-             <Link to={`/${item.label}/${item.id}`} key={item.id}>
+            // if ((category.id.toString() === item.id) {
+            //   return (
+
             <GoodCard 
+            key={item.id}
               id={item.id}
               label={item.label}
               price={item.price}
               img={item.img}
               description={item.description}
             ></GoodCard>
-            </Link>
+           
           ))}
           </div>
         </div>

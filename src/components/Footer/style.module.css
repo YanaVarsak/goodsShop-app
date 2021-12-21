@@ -10,4 +10,7 @@ font-size: 11px;
 line-height: 20px;
 color: #999;
 box-sizing: border-box;
+
+flex: 0 0 auto;
 }
+

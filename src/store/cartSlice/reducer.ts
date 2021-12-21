@@ -5,7 +5,7 @@ import { State } from './types'
 
 const INITIAL_STATE: State = {
     loadStatus: LOAD_STATUSES.UNKNOWN,
-    data: []
+    data: {carts: []}
 }
 
 export function cartReducer(state = INITIAL_STATE, action: Action<CART_ACTIONS>) {
@@ -22,6 +22,26 @@ export function cartReducer(state = INITIAL_STATE, action: Action<CART_ACTIONS>)
             }
             return {
                 data: payload,
+                loadStatus: LOAD_STATUSES.LOADED
+            }
+        case CART_ACTIONS.PUT_CART:
+            return {
+                ...state,
+                loadStatus: LOAD_STATUSES.LOADING
+            }
+        case CART_ACTIONS.PUT_CART_SUCCESS:
+            return {
+               ...state,
+               loadStatus: LOAD_STATUSES.LOADED
+            }
+        case CART_ACTIONS.DELERE_CART:
+            return {
+                ...state,
+                loadStatus: LOAD_STATUSES.LOADING
+            }
+        case CART_ACTIONS.DELERE_CART_SUCCESS:
+            return {
+                ...state,
                 loadStatus: LOAD_STATUSES.LOADED
             }
         case CART_ACTIONS.CART_FAILURE:

@@ -15,12 +15,10 @@ export const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/:label/:id" element={<ProductPage />} />
         <Route path="/:id" element={<CategoryPage />} />
+        <Route path="/good/:id" element={<ProductPage />} />
         <Route path="/goods" element={<GoodsPage />} />
       </Routes>
-     
-
       <Footer />
     </Provider>
   );
