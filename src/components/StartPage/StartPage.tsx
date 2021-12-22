@@ -23,8 +23,8 @@ export const StartPage: React.FC = () => {
       <div style={{ display: "flex", padding: "20px" }}>
         <MenuSide />
         <img
-          style={{ width: "84%", height: "530px", margin: "0px 0px 60px 0px" }}
-          src="https://storge.pic2.me/c/1360x800/126/59ee6feec1016.jpg"
+          style={{ width: "75%", height: "550px", margin: "0px 0px 30px 100px" }}
+          src="https://source.unsplash.com/random"
           alt=""
         />
       </div>
@@ -33,9 +33,6 @@ export const StartPage: React.FC = () => {
           <h2 style={{ textAlign: "center" }}>{category.label} </h2>
           <div style={{ display: "flex", justifyContent:"space-between"}}>
           {items.slice(1,6).map((item) => (
-            // if ((category.id.toString() === item.id) {
-            //   return (
-
             <GoodCard 
             key={item.id}
               id={item.id}
@@ -44,7 +41,6 @@ export const StartPage: React.FC = () => {
               img={item.img}
               description={item.description}
             ></GoodCard>
-           
           ))}
           </div>
         </div>

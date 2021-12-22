@@ -36,6 +36,7 @@ console.log(goods)
   }
   return (
     <>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", marginLeft: "40px"}}>
       {goods.map((item) => (
         <GoodCard
         key={item.id}
@@ -46,6 +47,8 @@ console.log(goods)
           description={item.description}
         ></GoodCard>
       ))}
+      </div>
     </>
+    
   );
 };
